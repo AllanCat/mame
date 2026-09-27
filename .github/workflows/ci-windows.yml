@@ -42,7 +42,9 @@ jobs:
             cxx: g++
             subtarget: mame
             executable: mame
-            cxxflags: "-Wno-sfinae-incomplete"
+            cxxflags: >-
+              -Wno-sfinae-incomplete
+              -Wno-unused-but-set-variable
           - compiler: clang
             cc: clang
             cxx: clang++
