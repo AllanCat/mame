@@ -42,11 +42,13 @@ jobs:
             cxx: g++
             subtarget: mame
             executable: mame
+            cxxflags: "-Wno-sfinae-incomplete"
           - compiler: clang
             cc: clang
             cxx: clang++
             subtarget: tiny
             executable: mametiny
+            cxxflags: ""
     steps:
     - uses: msys2/setup-msys2@v2
       with:
@@ -61,9 +63,10 @@ jobs:
         OVERRIDE_CC: ${{ matrix.cc }}
         OVERRIDE_CXX: ${{ matrix.cxx }}
         ARCHOPTS: "-fuse-ld=lld"
+        ARCHOPTS_CXX: ${{ matrix.cxxflags }}
         SUBTARGET: ${{ matrix.subtarget }}
         TOOLS: 1
-      run: make -j3
+      run: make REGENIE=1 -j3
     - name: Validate
       run: ./${{ matrix.executable }}.exe -validate
     - uses: actions/upload-artifact@main
