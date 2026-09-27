@@ -17,6 +17,12 @@ on:
     - 'src/**'
     - 'COPYING'
     - 'makefile'
+  workflow_dispatch:
+    inputs:
+      target_job:
+        description: 'Build Windows'
+        required: true
+        default: 'build-windows'
 
 permissions:
   contents: read
